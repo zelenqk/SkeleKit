@@ -663,6 +663,7 @@ function imguigml_color_edit3() {
 	ret[@ outi++] = buffer_read(out, buffer_f32);
 	ret[@ outi++] = buffer_read(out, buffer_f32);
 	ret[@ outi++] = buffer_read(out, buffer_f32);
+	
 	return ret; 
 }
 __ImguiIg(imguigml_color_edit3)
@@ -1435,7 +1436,7 @@ __ImguiIg(imguigml_input_float4)
 ///@param {Real} [_step_fast=100]
 ///@param {Real:EImGui_InputTextFlags} [_extra_flags=0])
 ///@returns {Array:[_changed, _val]}
-function imguigml_input_int() {
+function imguigml_input_int(_label, _val, _step=1, _step_fast=100, _extra_flags=0) {
 	var in = __Imgui_in;
 	sr_buffer_write(in, argument[0]);
 	sr_buffer_write(in, argument[1], ERousrData.Int32);

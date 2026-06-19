@@ -1,5 +1,3 @@
-read_config();
-dimensions = {width: window_get_width(), height: window_get_height()}
 
 //systems
 interface = new EditorInterface(self);
@@ -24,6 +22,9 @@ key.bind("undo", [vk_control, "z"], true, KEY.HOLD);
 key.bind("redo", [vk_control, "y"], true, KEY.HOLD);
 
 //cache
+read_config();
+dimensions = {width: window_get_width(), height: window_get_height()}
+
 enum MODE { CREATE_RIG, RIG_SPRITE, ANIMATE };
 enum INTERACT { MOVE };
 

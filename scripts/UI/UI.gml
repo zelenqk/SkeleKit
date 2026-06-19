@@ -263,7 +263,16 @@ function UI() constructor {
 			}
 		}
 	#endregion
-
+		
+	#region PUSH ITEM WIDTH
+		/// @func push_item_width(width)
+		/// @parameter width {int} width
+		static push_item_width = function(width){
+			imguigml_push_item_width(width);	
+		}
+	
+	#endregion
+		
 	#region INPUTS (WITH BUTTONS)
 		/// @func input_int(_label, _values, _step, _step_fast, _on_change, _flags)
 		/// @parameter _label {String} Label
@@ -484,17 +493,38 @@ function UI() constructor {
 		/// @func color_edit(_label, _id, _red, _green, _blue, _on_change, [_flags = 0])
 		/// @param {String} _label Title name of the window
 		/// @param {String} _id This is the ID. Needs to be UNIQUE
-		/// @param {Real} _red Red value between 0 - 1
-		/// @param {Real} _green Green value between 0 - 1
-		/// @param {Real} _blue Blue value between 0 - 1
+		/// @param {Real} _color Blue value between 0 - 1
 		/// @param {Function} _on_change The function to call when something changed
 		/// @param {Real} _flags Flags from EImGui_ColorEditFlags
-		static color_edit = function(_label, _id, _red, _green, _blue, _on_change, _flags = 0) {
-			var ret = imguigml_color_edit3(string(_label) + "###" + string(_id), _red, _green, _blue, _flags);
-			
-			if(ret[0] == 1) {
-				_on_change(ret[1], ret[2], ret[3]);
+		static color_edit = function(_label, _id, _color, _on_change, _flags = 0) {
+			if (context[$ _id] == undefined) context[$ _id] = {
+				state: {
+				    r: color_get_red(_color) / 255,
+				    g: color_get_green(_color) / 255,
+				    b: color_get_blue(_color) / 255
+				}
 			}
+			
+			var _state = context[$ _id].state;
+			if (_state == undefined) {
+				context[$ _id].state = {
+				    r: color_get_red(_color) / 255,
+				    g: color_get_green(_color) / 255,
+				    b: color_get_blue(_color) / 255
+				}
+				
+				_state = context[$ _id].state;
+			}
+			
+		    // _state is a persistent struct like { r: 1, g: 0, b: 0 } that YOU own and keep alive
+		    var ret = imguigml_color_edit3(string(_label) + "###" + string(_id), _state.r, _state.g, _state.b, _flags);
+			
+		    if (ret[0] == 1) {
+		        _state.r = ret[1];
+		        _state.g = ret[2];
+		        _state.b = ret[3];
+		        _on_change(make_colour_rgb(ret[1] * 255, ret[2] * 255, ret[3] * 255));
+		    }
 		}
 		
 		/// @func color_edit_alpha(_label, _id, _red, _green, _blue, _alpha, _on_change, [_flags = 0])

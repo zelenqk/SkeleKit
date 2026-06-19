@@ -16,7 +16,40 @@ function EditorInterface(controller) constructor {
 		
 		return imguigml_is_any_item_active();
 	}
-
+	
+	grid_settings = function(){
+		gui.push_item_width(200);
+		gui.label("size ");
+		gui.same_line();
+		gui.push_item_width(100);
+		gui.input_int("", "gridSizeInt", [controller.grid.size], 1, 1, function(val){
+			controller.grid.size = val;
+			controller.grid.build();
+		});
+		
+		gui.separator();
+		
+		gui.push_item_width(200);
+		gui.label("line color");
+		gui.same_line();
+		gui.color_edit("", "gridLineColorEdit", controller.grid.line,
+		    function(color) {
+		        controller.grid.line = color;
+		        controller.grid.build();
+		    }
+		);
+		
+		gui.push_item_width(200);
+		gui.label("origin color");
+		gui.same_line();
+		gui.color_edit("", "gridOriginColorEdit", controller.grid.origin,
+		    function(color) {
+		        controller.grid.origin = color;
+		        controller.grid.build();
+		    }
+		)
+	}
+	
 	header = function(){
 		gui.menu_main(function(){
 			gui.menu_strip("File", "menuFile", function(){
@@ -29,11 +62,7 @@ function EditorInterface(controller) constructor {
 			});
 			
 			gui.menu_strip("Edit", "menuEdit", function(){
-				gui.menu_strip("Grid", "gridEdit", function(){
-					gui.menu_item("size", "gridSize", function(){
-						
-					});
-				});
+				gui.menu_strip("Grid", "gridEdit", grid_settings);
 			})
 			
 			gui.menu_strip("Help", "menuHelp", function(){

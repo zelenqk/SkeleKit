@@ -13,7 +13,6 @@ function Grid() constructor{
 	
 	vertex = vertex_create_buffer();
 	
-	
 	//methods
 	static build = function() {
 		vertex_begin(vertex, format);
