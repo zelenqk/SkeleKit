@@ -12,7 +12,7 @@ function Skeleton() constructor {
 	
 	//util methods
 	add = function(tx, ty, sprite = -1, p = root) {
-		var node = new Node(tx, ty, sprite, p, array_length(nodes));
+		var node = new Node(tx, ty, sprite, p, string(array_length(nodes)));
 		
 		array_push(p.children, node);
 		array_push(nodes, node);

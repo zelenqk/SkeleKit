@@ -31,8 +31,7 @@ function imgui_context() constructor {
 	
 	Last_set_cursor = window_get_cursor();
 	
-	static destroy = function(){
-		///@desc imgui - Clean Up
+	destroy = function(){
 		var num_textures = array_length(Textures);
 		var i = 1;
 		repeat(num_textures - 1) {

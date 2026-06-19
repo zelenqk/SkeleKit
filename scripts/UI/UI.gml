@@ -3,11 +3,10 @@ __imguigml = noone;
 
 function UI() constructor {
 	self.context = new imgui_context();
-	/// @func init()
-	/// @desc initializes the imgui library
-	static init = function() {
-		
-	}
+	
+	step = context.step;
+	render = context.render;
+	destroy = context.destroy;
 	
 	/// @func ready()
 	/// @desc Called to check if the UI class is ready
@@ -15,10 +14,6 @@ function UI() constructor {
 	static ready = function() {
 		return imguigml_ready();
 	}
-
-	step = context.step;
-	
-	render = context.render;
 
 	#region BUTTONS
 		/// @func button(_label, _on_click, [_size_x = 0], [_size_y = 0])
@@ -154,14 +149,10 @@ function UI() constructor {
 		/// @param {String} _id The id of the button. Needs to be unique
 		/// @param {Function} _on_click This is what you want to happen when they click it
 		static menu_strip = function(_label, _id, _on_click) {
-			if(imguigml_begin_menu_bar()) {
-				if(imguigml_begin_menu(string(_label) + "###" + string(_id))) {
-					_on_click();
+			if(imguigml_begin_menu(string(_label) + "###" + string(_id))) {
+				_on_click();
 
-					imguigml_end_menu();
-				}
-				
-				imguigml_end_menu_bar();
+				imguigml_end_menu();
 			}
 		}
 
@@ -171,7 +162,7 @@ function UI() constructor {
 		/// @param {Function} _on_click This is what you want to happen when they click it
 		/// @param {String} _shortcut Short cut key
 		static menu_item = function(_label, _id, _on_click, _shortcut = "") {
-			if(imguigml_menu_item(string(_label) + "###" + string(_id), _shortcut)) {
+			if (imguigml_menu_item(string(_label) + "###" + string(_id), _shortcut)) {
 				_on_click();
 			}
 		}

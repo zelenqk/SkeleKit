@@ -7,7 +7,7 @@ if (mouse_check_button_pressed(mb_left)) {
 	for(var i = 0; i < array_length(skeleton.nodes); i++) {
 		var node = skeleton.nodes[i];
 		
-		if (point_in_circle(mouse_x, mouse_y, node.x, node.y, 16)) {
+		if (point_in_circle(camera.mouse.x, camera.mouse.y, node.x, node.y, 16)) {
 			selected.node = node;
 			break;
 		}
@@ -16,8 +16,8 @@ if (mouse_check_button_pressed(mb_left)) {
 
 switch (selected.interaction){
 case INTERACT.MOVE:
-	var tx = mouse_x;
-	var ty = mouse_y;
+	var tx = camera.mouse.x;
+	var ty = camera.mouse.y;
 	
 	if (bind.snap) {
 		var snapped = grid.snap(tx, ty);
@@ -41,7 +41,7 @@ case INTERACT.MOVE:
 	break;
 }
 
-if (bind.extrude) skeleton.add(mouse_x, mouse_y, -1, selected.node);
+if (bind.extrude) skeleton.add(camera.mouse.x, camera.mouse.y, -1, selected.node);
 if (bind.move) {
 	var node = selected.node;
 	selected.state = capture_node_state(node);

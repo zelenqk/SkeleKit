@@ -27,6 +27,11 @@ function Camera() constructor{
 	
 	target = {x, y, width, height};
 	
+	mouse = {
+		x: 0,
+		y: 0,
+	}
+	
 	//methods
 	setup = function() {
 		view_enabled = true;
@@ -53,22 +58,26 @@ function Camera() constructor{
 	step = function(){
 		zoom = clamp(zoom + (mouse_wheel_down() - mouse_wheel_up()) * 0.1, 0.1, 10);
 		
+		var mx = device_mouse_x_to_gui(0)
+		var my = device_mouse_y_to_gui(0)
+		mouse.x = x - (width * zoom) * anchor.x + mx * ((width * zoom) / width);
+		mouse.y = y - (height * zoom) * anchor.y + my * ((height * zoom) / height);
+		
 		if (mouse_check_button_released(mb_middle)) panning = false;
 		if (panning) {
-		    x += (pan.x - device_mouse_x_to_gui(0)) * zoom;
+		    x += (pan.x - mx) * zoom;
 		    y += (pan.y - device_mouse_y_to_gui(0)) * zoom;
 			
-		    pan.x = device_mouse_x_to_gui(0);
-		    pan.y = device_mouse_y_to_gui(0);
-			
+		    pan.x = mx;
+		    pan.y = my;
 			return;
 		}
 		
 		if (mouse_check_button_pressed(mb_middle)) {
 			panning = true;
 		
-			pan.x = device_mouse_x_to_gui(0);
-			pan.y = device_mouse_y_to_gui(0);
+			pan.x = mx;
+			pan.y = my;
 		}
 	}
 	
