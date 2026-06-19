@@ -1,0 +1,2 @@
+camera.draw();
+interface.draw();

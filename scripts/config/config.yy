@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"config",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"config",
+  "parent":{
+    "name":"Util",
+    "path":"folders/Editor/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

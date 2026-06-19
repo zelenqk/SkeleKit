@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"draw_rig",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"draw_rig",
+  "parent":{
+    "name":"Util",
+    "path":"folders/Editor/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ActionControl",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ActionControl",
+  "parent":{
+    "name":"Classes",
+    "path":"folders/Editor/Classes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

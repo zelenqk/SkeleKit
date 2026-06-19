@@ -1,0 +1,2 @@
+camera.step();
+camera.render();

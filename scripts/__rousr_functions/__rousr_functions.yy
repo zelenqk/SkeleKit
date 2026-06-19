@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__rousr_functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__rousr_functions",
+  "parent":{
+    "name":"__internal",
+    "path":"folders/Editor/ImGuiGML/Scripts/extension/__internal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
