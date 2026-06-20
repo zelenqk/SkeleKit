@@ -2533,18 +2533,31 @@ __ImguiIg(imguigml_get_style_color_name)
 ///@returns {Array:[x,y]}
 function imguigml_calc_text_size() {
 	var in = __Imgui_in;
-
-	var _text_end = argument_count > 1 && is_string(argument[1]) ? argument[1] : noone;
+	var _text_end = argument_count > 1 && is_string(argument[1]) ? argument[1] : "";
 	var _hide_text_after_double_hash = argument_count > 2 ? argument[2] : false;
-
 	sr_buffer_write(in, string(argument[0]));
-	sr_buffer_write(in, _text_end, !is_string(_text_end) ? ERousrData.Int8 : ERousrData.String);
+	sr_buffer_write(in, _text_end, ERousrData.String);
 	sr_buffer_write(in, _hide_text_after_double_hash ? 1 : 0, ERousrData.Int8);
 	sr_buffer_write(in, argument_count > 3 ? argument[3] : -1.0, ERousrData.Float);
-	if (!__imguigml_ext_call(_extImguiGML_calc_text_size()))
+
+	// --- PEEK before the call ---
+	var pos_before_peek = buffer_tell(in);
+	buffer_seek(in, buffer_seek_start, 0);
+	var peek_before_a = buffer_read(in, buffer_f32);
+	var peek_before_b = buffer_read(in, buffer_f32);
+	show_debug_message($"BEFORE call, bytes 0-8 as floats: {peek_before_a}, {peek_before_b}");
+	buffer_seek(in, buffer_seek_start, pos_before_peek); // restore position so the real call isn't affected
+
+	var success = __imguigml_ext_call(_extImguiGML_calc_text_size());
+	if (!success)
 		return;
 
-	var out = __Imgui_out;
+	// --- PEEK after the call ---
+	var out = __Imgui_out; // this reseeks to 0 anyway, per the macro
+	var peek_after_a = buffer_peek(out, 0, buffer_f32);
+	var peek_after_b = buffer_peek(out, 4, buffer_f32);
+	show_debug_message($"AFTER call, bytes 0-8 as floats: {peek_after_a}, {peek_after_b}");
+
 	var ret = array_create(2);
 	ret[@ 0] = buffer_read(out, buffer_f32);
 	ret[@ 1] = buffer_read(out, buffer_f32);

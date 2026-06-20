@@ -30,7 +30,60 @@ function UI() constructor {
 		
 		imguigml_drawlist_add_line(sx, sy, sx + 300, sy, $1fffffff);
 	}
+		
+	static image_button_with_text = function(_id, _sprite, _sprite_index, _top_text, _bottom_text, _height = 32, _img_size = 64) {
+	    var avail = imguigml_get_content_region_avail();
+	    var width = avail[0];
+	
+	    var start_screen_pos = imguigml_get_cursor_screen_pos();
+	
+	    // 1. invisible button claims the click + reserves the layout space
+	    var clicked = imguigml_invisible_button(_id, width, _height);
+	    var hovered = imguigml_is_item_hovered();
+	
+	    // 2. jump cursor back to the top-left of that same region to draw real content on top
+	    imguigml_set_cursor_screen_pos(start_screen_pos[0], start_screen_pos[1]);
+	
+	    var sx = start_screen_pos[0];
+	    var sy = start_screen_pos[1];
+	
+	    // 3. draw the BUTTON background, spanning the full button area
+	    var btn_color = hovered
+	        ? imguigml_get_color_u32(0.3, 0.3, 0.3, 1.0)
+	        : imguigml_get_color_u32(0.15, 0.15, 0.15, 1.0);
+	
+	    imguigml_drawlist_add_quad_filled(
+	        sx,           sy,
+	        sx + width,   sy,
+	        sx + width,   sy + _height,
+	        sx,           sy + _height,
+	        btn_color
+	    );
+	
+	    // 4. draw image on top of the button background
+	    imguigml_sprite(_sprite, _sprite_index, _img_size, _img_size);
+	    imguigml_same_line();
+	
+	    // 5. draw the two stacked text lines to the right of the image, vertically grouped
+		// top text: larger, lighter
+		imguigml_set_window_font_scale(2); // 1.5x the base font size — half-again as your "half the height" target, tweak the multiplier to taste
+		imguigml_push_style_color(EImGui_Col.Text, 0.9, 0.9, 0.9, 1.0); // light gray/near-white
+		imguigml_begin_group();
+		    imguigml_text(_top_text);
+		
+		imguigml_pop_style_color(1);
+		imguigml_set_window_font_scale(1.69); // reset before drawing the next thing
 
+
+		// bottom text: smaller, darker
+		imguigml_push_style_color(EImGui_Col.Text, 0.65, 0.65, 0.65, 0.70); // darker gray
+		imguigml_text(_bottom_text);
+		imguigml_pop_style_color(1);
+		imguigml_end_group();
+
+		return clicked;
+	}
+	
 	#region BUTTONS
 		/// @func button(_label, _on_click, [_size_x = 0], [_size_y = 0])
 		/// @param {String} _label This is the label for the button

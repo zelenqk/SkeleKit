@@ -82,9 +82,9 @@ function Node(tx, ty, sprite = -1, p = self, name = "") constructor {
 	parent = p;
 	children = [];
 	
-	self.name = (parent == self) ? "root" : name;
-	
-	connected = true;
+	var root = (parent == self);
+	self.name = root ? "root" : name;
+	connected = !root;
 	
 	bone = {
 		lockLength: false,

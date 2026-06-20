@@ -11,8 +11,8 @@
   "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"Editor","folderPath":"folders/Editor.yy","name":"Editor","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Classes","folderPath":"folders/Editor/Classes.yy","name":"Classes","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Assets","folderPath":"folders/Editor/Assets.yy","name":"Assets","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Classes","folderPath":"folders/Editor/Classes.yy","name":"Classes","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"ImGuiGML","folderPath":"folders/Editor/ImGuiGML.yy","name":"ImGuiGML","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Editor/ImGuiGML/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"extension","folderPath":"folders/Editor/ImGuiGML/Scripts/extension.yy","name":"extension","resourceType":"GMFolder","resourceVersion":"2.0",},

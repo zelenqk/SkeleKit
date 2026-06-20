@@ -63,3 +63,6 @@ if (bind.move) {
 	
 	selected.interaction = (selected.interaction == INTERACT.MOVE) ? pointer_null : INTERACT.MOVE;
 }
+
+
+camera.step();
