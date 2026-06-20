@@ -12,6 +12,7 @@
   "Folders":[
     {"$GMFolder":"","%Name":"Editor","folderPath":"folders/Editor.yy","name":"Editor","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Classes","folderPath":"folders/Editor/Classes.yy","name":"Classes","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Assets","folderPath":"folders/Editor/Assets.yy","name":"Assets","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"ImGuiGML","folderPath":"folders/Editor/ImGuiGML.yy","name":"ImGuiGML","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Editor/ImGuiGML/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"extension","folderPath":"folders/Editor/ImGuiGML/Scripts/extension.yy","name":"extension","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -53,6 +54,8 @@
     {"id":{"name":"UI","path":"scripts/UI/UI.yy",},},
     {"id":{"name":"shd_imgui_depth","path":"shaders/shd_imgui_depth/shd_imgui_depth.yy",},},
     {"id":{"name":"shd_imgui","path":"shaders/shd_imgui/shd_imgui.yy",},},
+    {"id":{"name":"sBone","path":"sprites/sBone/sBone.yy",},},
+    {"id":{"name":"sTooltip","path":"sprites/sTooltip/sTooltip.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",

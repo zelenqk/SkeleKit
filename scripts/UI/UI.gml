@@ -15,6 +15,22 @@ function UI() constructor {
 		return imguigml_ready();
 	}
 
+	static paragraph = function(text = ""){
+		imguigml_text(text);
+		
+		var start = imguigml_get_cursor_screen_pos();
+		imguigml_same_line();
+		var screen_pos = imguigml_get_cursor_screen_pos();
+		imguigml_new_line();
+		
+		var delta = (start[1] - screen_pos[1]) / 2
+ 		
+		var sx = screen_pos[0];
+		var sy = screen_pos[1] + delta;
+		
+		imguigml_drawlist_add_line(sx, sy, sx + 300, sy, $1fffffff);
+	}
+
 	#region BUTTONS
 		/// @func button(_label, _on_click, [_size_x = 0], [_size_y = 0])
 		/// @param {String} _label This is the label for the button
@@ -460,8 +476,14 @@ function UI() constructor {
 		/// @desc Call after a control to apply a tooltip when mousing over
 		/// @param {String} _string  the text to use
 		static tooltip = function(_string) {
-			if(imguigml_is_item_hovered()) {
-				imguigml_set_tooltip(string(_string))
+			var tex = sprite_get_texture(sTooltip, 0);
+			var uv = sprite_get_uvs(sTooltip, 0);
+			
+			imguigml_image(tex, 16, 16, uv[0], uv[1], uv[2], uv[3]);
+			if (imguigml_is_item_hovered()) {
+			    imguigml_begin_tooltip();
+			    imguigml_text(_string);
+			    imguigml_end_tooltip();
 			}
 		}
 	#endregion
@@ -538,6 +560,8 @@ function UI() constructor {
 		/// @param {Real} _flags Flags from EImGui_ColorEditFlags
 		static color_edit_alpha = function(_label, _id, _red, _green, _blue, _alpha, _on_change, _flags = 0) {
 			var ret = imguigml_color_edit4(string(_label) + "###" + string(_id), _red, _green, _blue, _alpha, _flags);
+			
+			
 			
 			if(ret[0] == 1) {
 				_on_change(ret[1], ret[2], ret[3], ret[4]);

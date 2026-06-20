@@ -84,10 +84,10 @@ function Node(tx, ty, sprite = -1, p = self, name = "") constructor {
 	
 	self.name = (parent == self) ? "root" : name;
 	
-	fixed = false;
 	connected = true;
 	
 	bone = {
+		lockLength: false,
 		sprite: sprite,
 		length: point_distance(parent.x, parent.y, x, y),
 		direction: point_direction(parent.x, parent.y, x, y),

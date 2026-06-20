@@ -47,8 +47,8 @@ function draw_node(rig, node, size, outline, scale) {
 #macro BONE_END_X node.x - lengthdir_x(18, dir) * scale
 #macro BONE_END_Y node.y - lengthdir_y(18, dir) * scale
 
-#macro ELBOW_X lengthdir_x(12, dir + 90)
-#macro ELBOW_Y lengthdir_y(12, dir + 90)
+#macro ELBOW_X lengthdir_x(12 , dir + 90)
+#macro ELBOW_Y lengthdir_y(12 , dir + 90)
 
 function draw_bone(node, size, outline, scale) {
 	var bone = node.bone;

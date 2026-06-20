@@ -2,8 +2,8 @@ if (interface.step()) exit;
 
 if (mouse_check_button_pressed(mb_left)) {
 	end_interaction();
-	selected.node = skeleton.root;
-	
+	selected.node = pointer_null;
+
 	for(var i = 0; i < array_length(skeleton.nodes); i++) {
 		var node = skeleton.nodes[i];
 		
@@ -41,7 +41,22 @@ case INTERACT.MOVE:
 	break;
 }
 
-if (bind.extrude) skeleton.add(camera.mouse.x, camera.mouse.y, -1, selected.node);
+if (bind.extrude and selected.node != pointer_null) {
+	var node = skeleton.add(camera.mouse.x, camera.mouse.y, -1, selected.node);
+	var index = array_get_index(skeleton.nodes, node);
+	
+	selected.node = node;
+	selected.interaction = INTERACT.MOVE;
+	node.justMade = true;
+	
+	action.add({object: node, create: true, index: index}, {object: node, create: false, index: index}, function(args){
+		if (args.create) {
+			array_delete(skeleton.nodes, args.index, 1);
+			if (selected.node == args.object) selected.node = pointer_null;
+		}else array_insert(skeleton.nodes, args.index, args.object);
+	});
+}
+
 if (bind.move) {
 	var node = selected.node;
 	selected.state = capture_node_state(node);

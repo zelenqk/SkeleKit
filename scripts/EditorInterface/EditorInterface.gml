@@ -2,26 +2,28 @@ function EditorInterface(controller) constructor {
 	self.controller = controller;
 	
 	gui = new UI();
-	
 	destroy = gui.destroy;
+	
+	headerDimensions = [0, 0];
 	
 	step = function(){
 		gui.step();
 
 		if (gui.ready()) { 
+
 			header();
-			
-			node_edit();
+			if (controller.selected.node != pointer_null) node_edit();
 		}
 		
 		return imguigml_is_any_item_active();
 	}
 	
 	grid_settings = function(){
-		gui.push_item_width(200);
+		var label_col_width = 100
+		
 		gui.label("size ");
 		gui.same_line();
-		gui.push_item_width(100);
+		imguigml_set_cursor_pos_x(label_col_width);
 		gui.input_int("", "gridSizeInt", [controller.grid.size], 1, 1, function(val){
 			controller.grid.size = val;
 			controller.grid.build();
@@ -29,9 +31,9 @@ function EditorInterface(controller) constructor {
 		
 		gui.separator();
 		
-		gui.push_item_width(200);
 		gui.label("line color");
 		gui.same_line();
+		imguigml_set_cursor_pos_x(label_col_width);
 		gui.color_edit("", "gridLineColorEdit", controller.grid.line,
 		    function(color) {
 		        controller.grid.line = color;
@@ -39,15 +41,16 @@ function EditorInterface(controller) constructor {
 		    }
 		);
 		
-		gui.push_item_width(200);
 		gui.label("origin color");
 		gui.same_line();
+		imguigml_set_cursor_pos_x(label_col_width);
 		gui.color_edit("", "gridOriginColorEdit", controller.grid.origin,
 		    function(color) {
 		        controller.grid.origin = color;
 		        controller.grid.build();
 		    }
-		)
+		);
+		
 	}
 	
 	header = function(){
@@ -68,11 +71,13 @@ function EditorInterface(controller) constructor {
 			gui.menu_strip("Help", "menuHelp", function(){
 			
 			});
+			
+			headerDimensions = imguigml_get_item_rect_max();
 		});	
 	}
 	
 	node_edit = function(){
-		gui.window("Node", "NodeEdit", display_get_gui_width() - 10 - 200, 30, 200, 300, function(){
+		gui.window("Node", "NodeEdit", display_get_gui_width() - 10 - 200, headerDimensions[1] + 10, 200, 300, function(){
 			var node = controller.selected.node;
 			gui.label("name")
 			gui.same_line()
@@ -80,18 +85,13 @@ function EditorInterface(controller) constructor {
 				controller.selected.node.name = _text	
 			});
 			
-			gui.checkbox("fixed", "nodeFixed", node.fixed, function(value){
-				controller.selected.node.fixed = value;
-			});
-			
 			gui.checkbox("connected", "nodeConnected", node.connected, function(value){
 				controller.selected.node.connected = value;
 			});
 			
-			gui.separator();
 			
-			gui.label("positions");
-			
+			gui.paragraph("Positions");
+
 			gui.input_float("x", "nodeX", [node.x], 1, 10, function(value){
 				controller.selected.node.x = value
 			});
@@ -103,7 +103,23 @@ function EditorInterface(controller) constructor {
 			gui.input_float("depth", "nodeDepth", [node.depth], 1, 10, function(value){
 				controller.selected.node.depth = value
 			});
-		});
+			
+			
+			gui.paragraph("Bone");
+			
+			var tex = sprite_get_texture(sBone, 0);
+			var uv = sprite_get_uvs(sBone, 0);
+			
+			imguigml_image_button(tex, 64, 64, uv[0], uv[1], uv[2], uv[3]);
+			
+			gui.checkbox("lock length", "lockBoneLength", node.bone.lockLength, function(value){
+				controller.selected.node.bone.lockLength = value;
+			});
+			
+			gui.same_line();
+
+			gui.tooltip("whether to lock the bone's length to the sprite's rig length");
+});
 	}
 
 	draw = function(){

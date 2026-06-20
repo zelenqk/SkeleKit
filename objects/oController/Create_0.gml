@@ -42,6 +42,11 @@ selected = {
 end_interaction = function(){
 	switch (selected.interaction){
 	case INTERACT.MOVE:
+		if (selected.node[$ "justMade"]){
+			selected.node.justMade = false;
+			break;
+		}
+
 		action.add(selected.state, capture_node_state(selected.node), move_node);	
 		break;
 	}
