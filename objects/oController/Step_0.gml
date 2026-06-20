@@ -56,7 +56,7 @@ if (bind.remove and selected.node != pointer_null) {
 }
 
 if (bind.extrude and selected.node != pointer_null) {
-	var node = skeleton.add(camera.mouse.x, camera.mouse.y, -1, selected.node);
+	var node = skeleton.add(camera.mouse.x, camera.mouse.y, pointer_null, selected.node);
 	var index = array_get_index(skeleton.nodes, node);
 	
 	selected.node = node;

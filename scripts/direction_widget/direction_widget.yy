@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"direction_widget",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"direction_widget",
+  "parent":{
+    "name":"widgets",
+    "path":"folders/Editor/widgets.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

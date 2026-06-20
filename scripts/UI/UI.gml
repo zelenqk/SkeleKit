@@ -8,6 +8,7 @@ function UI() constructor {
 	render = context.render;
 	destroy = context.destroy;
 	
+	/// @func timeline_widget()
 	/// timeline_widget(struct)
 	/// Call this every step inside your ImGui window, between imguigml_begin()/imguigml_end()
 	///
@@ -25,8 +26,8 @@ function UI() constructor {
 		var col_cursor    = 0xFF4040F0;
 		var col_cursor_head = 0xFF6060FF;
 	
-		var width  = 500;
-		var height = 86;
+		var width  = 600;
+		var height = 128;
 	
 		// origin in screen space (so draw list calls line up with real pixels)
 		var origin = imguigml_get_cursor_screen_pos();
@@ -35,12 +36,12 @@ function UI() constructor {
 	
 		// --- clip / scroll region ---
 		// begin_child gives us the hidden-overflow scrollable strip
-		var flags = EImGui_WindowFlags.NoDecoration
 		var tx = display_get_gui_width() / 2 - width / 2;
 		var ty = display_get_gui_height() - height;
 		
-		imguigml_set_next_window_pos(tx, ty);
 		imguigml_set_next_window_size(width, height);
+		
+		var flags = EImGui_WindowFlags.NoResize | EImGui_WindowFlags.NoCollapse;
 		
 		imguigml_begin("timeline", undefined, flags)
 		
@@ -112,7 +113,7 @@ function UI() constructor {
 		    imguigml_text(_top_text);
 		
 		imguigml_pop_style_color(1);
-		imguigml_set_window_font_scale(1.69); // reset before drawing the next thing
+		imguigml_set_window_font_scale(1); // reset before drawing the next thing
 
 
 		// bottom text: smaller, darker

@@ -8,7 +8,8 @@ function EditorInterface(controller) constructor {
 	navbar = [0, 0];
 
 	search = {
-		sprite: false,	
+		sprite: false,
+		query: "",
 	}
 	
 	test = new TimelineState();
@@ -42,8 +43,8 @@ function EditorInterface(controller) constructor {
 		var ret = imguigml_begin("Search", search.sprite, flags);
 		search.sprite = ret[1] and (imguigml_is_window_focused(EImGui_FocusedFlags.ChildWindows) or imguigml_is_window_hovered(EImGui_HoveredFlags.ChildWindows));
 		
-		gui.input_text("search sprite", "spriteSearch", 1000, function(){
-		    
+		gui.input_text("", "spriteSearch", "", 1000, function(new_text){
+		    search.query = new_text;
 		});
 		
 		var btn_label = "load image";
@@ -52,6 +53,7 @@ function EditorInterface(controller) constructor {
 		var avail = imguigml_get_content_region_avail();
 		var target_x = avail[0] - btn_width;
 		imguigml_set_cursor_pos_x(target_x);
+		gui.same_line();
 		gui.button(btn_label, "loadSprite", function(){
 			
 		}, btn_width);
@@ -185,6 +187,7 @@ function EditorInterface(controller) constructor {
 				controller.selected.node.depth = value
 			});
 			
+			if (node == controller.skeleton.root) return;
 			
 			gui.paragraph("Bone");
 			
