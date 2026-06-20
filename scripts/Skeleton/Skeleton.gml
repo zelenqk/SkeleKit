@@ -11,7 +11,7 @@ function Skeleton() constructor {
 	y = 0;
 	
 	//util methods
-	add = function(tx, ty, sprite = -1, p = root) {
+	add = function(tx, ty, sprite = pointer_null, p = root) {
 		var node = new Node(tx, ty, sprite, p, string(array_length(nodes)));
 		
 		array_push(p.children, node);
@@ -74,7 +74,7 @@ function Skeleton() constructor {
 	}
 }
 
-function Node(tx, ty, sprite = -1, p = self, name = "") constructor {
+function Node(tx, ty, sprite = pointer_null, p = self, name = "") constructor {
 	x = tx;
 	y = ty;
 	depth = 0;

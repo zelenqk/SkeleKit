@@ -141,6 +141,7 @@ function __imguigml_init_font() {
 		var _tex = Textures[FontTexture];
 		sprite_delete(_tex[1]);
 	}
+	
 
 	if (!__imguigml_ext_call(_extImguiGML_create_font_texture(FontTexture, buffer_get_address(arg_buffer))))
 		return;

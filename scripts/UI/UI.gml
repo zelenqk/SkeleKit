@@ -8,6 +8,46 @@ function UI() constructor {
 	render = context.render;
 	destroy = context.destroy;
 	
+	/// timeline_widget(struct)
+	/// Call this every step inside your ImGui window, between imguigml_begin()/imguigml_end()
+	///
+	/// state struct fields you must keep around per-instance:
+	///   current_frame   - the cursor's frame index (read/write — drag updates this)
+	///   frame_count     - total number of frames in the timeline
+	///   frame_width     - px width of each frame tick (zoom level)
+	///   height          - px height of the timeline strip
+	///   scroll_x        - horizontal scroll offset in px (you manage/persist this)
+	///   dragging        - bool, true while the user is scrubbing
+	static timeline_widget = function(state) {
+		var col_bg        = 0xFF302820; // ABGR-ish order depends on your wrapper's Uint32 packing, adjust if colors look wrong
+		var col_tick      = 0xFF564A3C;
+		var col_tick_major= 0xFF7A6A56;
+		var col_cursor    = 0xFF4040F0;
+		var col_cursor_head = 0xFF6060FF;
+	
+		var width  = 500;
+		var height = 86;
+	
+		// origin in screen space (so draw list calls line up with real pixels)
+		var origin = imguigml_get_cursor_screen_pos();
+		var ox = origin[0];
+		var oy = origin[1];
+	
+		// --- clip / scroll region ---
+		// begin_child gives us the hidden-overflow scrollable strip
+		var flags = EImGui_WindowFlags.NoDecoration
+		var tx = display_get_gui_width() / 2 - width / 2;
+		var ty = display_get_gui_height() - height;
+		
+		imguigml_set_next_window_pos(tx, ty);
+		imguigml_set_next_window_size(width, height);
+		
+		imguigml_begin("timeline", undefined, flags)
+		
+
+		imguigml_end();
+	}
+	
 	/// @func ready()
 	/// @desc Called to check if the UI class is ready
 	/// @returns Bool
@@ -545,7 +585,7 @@ function UI() constructor {
 		/// @func window(_label, _width, _height, _x, _y, _callback, [_flags = EImGui_WindowFlags.NoCollapse + EImGui_WindowFlags.NoResize])
 		/// @param {String} _label Title name of the window
 		/// @param {String} _id This is the ID. Needs to be UNIQUE
-		/// @param {Real} _x Position X
+		/// @param {Real} _x Position _x
 		/// @param {Real} _y Position Y
 		/// @param {Real} _width Width of window. Use 0 for auto fit
 		/// @param {Real} _height Height of window. Use 0 for auto fit

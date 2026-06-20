@@ -18,6 +18,7 @@ skeleton = new Skeleton();
 key.bind("extrude", "e", false, KEY.PRESS);
 key.bind("move", "g", false, KEY.PRESS);
 key.bind("snap", vk_control, false, KEY.HOLD);
+key.bind("remove", vk_delete, false, KEY.HOLD);
 key.bind("undo", [vk_control, "z"], true, KEY.HOLD);
 key.bind("redo", [vk_control, "y"], true, KEY.HOLD);
 

@@ -6,21 +6,24 @@ function EditorInterface(controller) constructor {
 	
 	headerDimensions = [0, 0];
 	navbar = [0, 0];
-	focus = false
-	
+
 	search = {
 		sprite: false,	
 	}
 	
+	test = new TimelineState();
+	
 	step = function(){
-		focus = false;
 		gui.step();
 
 		if (gui.ready()) { 
 
 			header();
+			gui.timeline_widget(test);
+			
 			if (controller.selected.node != pointer_null) node_edit();
 			if (search.sprite) sprite_query();
+			
 		}
 		
 		return (imguigml_is_any_item_active() or imguigml_is_any_item_hovered() or imguigml_is_window_hovered(EImGui_FocusedFlags.AnyWindow));
@@ -132,9 +135,8 @@ function EditorInterface(controller) constructor {
 		var flags = EImGui_WindowFlags.NoDecoration
 		
 		var tx = display_get_gui_width() / 2 - navbar[0] / 2;
-		var ty = headerDimensions[1];
+		var ty = headerDimensions[1] - 1;
 		imguigml_set_next_window_pos(tx, ty, EImGui_Cond.Always);
-		
 		imguigml_begin("", true, flags)
 			var w = 200;
 			var h = 24;
@@ -151,7 +153,11 @@ function EditorInterface(controller) constructor {
 	}
 	
 	node_edit = function(){
-		gui.window("Node", "NodeEdit", display_get_gui_width() - 10 - 200, headerDimensions[1] + 10, 200, 300, function(){
+		var width = 250;
+		var height = 320;
+		var padding = 10
+		
+		gui.window("Node", "NodeEdit", display_get_gui_width() - padding - width, headerDimensions[1] + padding, width, height, function(){
 			var node = controller.selected.node;
 			gui.label("name")
 			gui.same_line()
@@ -159,10 +165,11 @@ function EditorInterface(controller) constructor {
 				controller.selected.node.name = _text	
 			});
 			
-			gui.checkbox("connected", "nodeConnected", node.connected, function(value){
-				controller.selected.node.connected = value;
-			});
-			
+			if (node != controller.skeleton.root){
+				gui.checkbox("connected", "nodeConnected", node.connected, function(value){
+					controller.selected.node.connected = value;
+				});
+			}
 			
 			gui.paragraph("Positions");
 
@@ -185,6 +192,13 @@ function EditorInterface(controller) constructor {
 			var uv = sprite_get_uvs(sBone, 0);
 			
 			if (imguigml_image_button(tex, 64, 64, uv[0], uv[1], uv[2], uv[3])) search.sprite = true;
+			gui.same_line();
+			imguigml_begin_group();
+				gui.label("Sprite");
+				
+				var sprite = node.bone.sprite;
+				gui.label(sprite == pointer_null ? "No sprite selected" : sprite_map[$ sprite.name]);
+			imguigml_end_group();
 			
 			gui.checkbox("lock length", "lockBoneLength", node.bone.lockLength, function(value){
 				controller.selected.node.bone.lockLength = value;
@@ -193,10 +207,20 @@ function EditorInterface(controller) constructor {
 			gui.same_line();
 
 			gui.tooltip("whether to lock the bone's length to the sprite's rig length");
-});
+		});
 	}
 
 	draw = function(){
 		gui.render();
 	}
+}
+
+
+
+function TimelineState() constructor {
+	current_frame = 0;        // which frame the cursor/scrubber sits on
+	frame_count   = 120;      // total frames available (e.g. 120 frames = 4 seconds at 30fps)
+	frame_width   = 12;       // px width per frame tick; bigger = more "zoomed in"
+	scroll_x      = 0;        // horizontal scroll offset in px
+	dragging      = false;    // true while user is actively scrubbing (don't set manually, widget manages this)
 }
