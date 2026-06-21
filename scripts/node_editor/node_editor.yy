@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"direction_widget",
+  "%Name":"node_editor",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"direction_widget",
+  "name":"node_editor",
   "parent":{
     "name":"widgets",
-    "path":"folders/Editor/widgets.yy",
+    "path":"folders/Editor/GUI/prefabs/widgets.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

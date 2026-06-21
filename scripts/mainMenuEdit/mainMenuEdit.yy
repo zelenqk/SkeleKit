@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"mainMnuEdit",
+  "%Name":"mainMenuEdit",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"mainMnuEdit",
+  "name":"mainMenuEdit",
   "parent":{
     "name":"sub_menus",
     "path":"folders/Editor/GUI/prefabs/main_menu/sub_menus.yy",

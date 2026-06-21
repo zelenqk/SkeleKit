@@ -51,7 +51,6 @@ function Camera() constructor{
 		view_hport[view] = height;
 		
 		surface.resize(width, height);
-		
 		display_set_gui_size(width, height);
 	}
 	

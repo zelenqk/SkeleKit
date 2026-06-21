@@ -4,9 +4,11 @@ function EditorInterface(controller) : imGuiPrefabs() constructor {
 	step = function(){
 		if (!update()) return;
 		
-		mainMenu();
+		headerSize = mainMenu();
 		
-		return (is_any_item_active() or is_window_focused(EImGui_FocusedFlags.AnyWindow) or is_window_hovered(EImGui_HoveredFlags.AnyWindow));
+		node_editor(controller.selected.node);
+		
+		return (is_any_item_active() or is_window_hovered(EImGui_HoveredFlags.AnyWindow));
 	}
 	
 	draw = function(){

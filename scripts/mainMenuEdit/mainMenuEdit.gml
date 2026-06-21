@@ -13,7 +13,6 @@ function mainMenuEditGrid() {
 		
 		separator();
 		
-		
 		begin_group();
 			text("line color");
 			same_line(100, -1);

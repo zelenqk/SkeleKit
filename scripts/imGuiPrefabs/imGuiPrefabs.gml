@@ -1,9 +1,50 @@
 function imGuiPrefabs() : gmGui() constructor {
 	cache = {};
 	
+	//-------------------base widgets-------------------
+		
+	static paragraph = function(_label){
+	    var _start = get_cursor_screen_pos(); // absolute screen coords, BEFORE drawing
+	    var avail = get_content_region_avail();
+		
+		begin_group();
+			text(_label);
+
+			var ty = _start[1] + (get_cursor_screen_pos()[1] - _start[1]) / 2 - 2;
+			var px = get_cursor_screen_pos()[0]
+			same_line();
+			var tx = get_cursor_screen_pos()[0];
+			var width = avail[0] - (tx - px);
+			drawlist_add_line(tx, ty, tx + width, ty, $20FFFFFF);
+		end_group();
+	}
+	
+	///@function window
+	///@param {String} label
+	///@param {String} id
+	///@param {Function} widget
+	///@param {Real} tx
+	///@param {Real} ty
+	///@param {Real} width
+	///@param {Real} height
+	///@param {Real} flags
+	static window = function(_label, _id, widget = empty_function, tx, ty, width, height, flags = 0, firstTime = false) {
+		var condition = (firstTime ? EImGui_Cond.FirstUseEver : 0);
+		set_next_window_pos(tx, ty, condition);
+		set_next_window_size(width, height, condition);
+		
+		start(_label + "###" + _id, undefined, flags);
+			widget();
+		finish();
+	}
+	
+	//-------------------menu widgets-------------------
 	static main_menu = function(widget = empty_function){
 		if (begin_main_menu_bar()) widget();
+		var size = get_window_size();
 		end_main_menu_bar();
+		
+		return size;
 	}
 	
 	static menu_strip = function(_label, _id, widget){
@@ -11,6 +52,12 @@ function imGuiPrefabs() : gmGui() constructor {
 			widget();
 			end_menu();
 		}
+	}
+	
+	//input widgets
+	static textbox = function(_text, _id) {
+		var ret = input_text("###" + _id, _text, 100);
+		return ret[1];
 	}
 	
 	static int_input = function(_label, _id, num, _step, _stepFast, onChange = empty_function, flags = 0){

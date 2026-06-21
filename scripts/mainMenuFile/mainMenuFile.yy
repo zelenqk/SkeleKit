@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"mainMenuFile",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"mainMenuFile",
+  "parent":{
+    "name":"sub_menus",
+    "path":"folders/Editor/GUI/prefabs/main_menu/sub_menus.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
