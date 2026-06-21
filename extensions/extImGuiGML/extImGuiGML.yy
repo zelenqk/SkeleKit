@@ -443,7 +443,7 @@
   "packageId":"",
   "parent":{
     "name":"ImGuiGML",
-    "path":"folders/Editor/ImGuiGML.yy",
+    "path":"folders/Editor/gmGui/ImGuiGML.yy",
   },
   "productId":"",
   "resourceType":"GMExtension",

@@ -14,7 +14,7 @@ function Grid() constructor{
 	vertex = vertex_create_buffer();
 	
 	//methods
-	static build = function() {
+	build = function() {
 		vertex_begin(vertex, format);
 		
 		var index = 0;

@@ -141,7 +141,6 @@ function __imguigml_init_font() {
 		var _tex = Textures[FontTexture];
 		sprite_delete(_tex[1]);
 	}
-	
 
 	if (!__imguigml_ext_call(_extImguiGML_create_font_texture(FontTexture, buffer_get_address(arg_buffer))))
 		return;
@@ -316,35 +315,29 @@ function __imguigml_texture_id() {
 	    _type    = argument[1];
 
 	if (argument_count > 2) _type = EImGuiGML_TextureType.Sprite; // 3 params is only acceptable for a sprite, deal with it.
-
-	with (ImGuiGML) {
-	  var num_textures = array_length(Textures);
-	  for (var i = 0; i < num_textures; ++i) {
-			var tex_data = Textures[i];
-			if (tex_data[EImGuiGML_Texture.Type] == _type) {
-	      var tex_id = tex_data[EImGuiGML_Texture.TextureID];
-      
-	      // special handling
-	      switch (_type) {
-	      case EImGuiGML_TextureType.Sprite:  
-	        if (_id == tex_id[0] && _sub_img == tex_id[1]) return i;      
-	      break;
-	      default: if (_id == tex_id) return i;
-	      }
-	    }
-	  }
-    
-	  var new_texture = [ _id , _id, false, _type ];
-  
-	  // special handling
-	  switch (_type) {
-	   case EImGuiGML_TextureType.Sprite:  new_texture[@ EImGuiGML_Texture.TextureID] = [ _id, _sub_img ]; break;
-	   default: break; 
-	  }
-  
-	  Textures[@ Next_texture_id++] = new_texture;
-	  return Next_texture_id - 1;
+	
+	var num_textures = array_length(Textures);
+	for (var i = 0; i < num_textures; ++i) {
+		var tex_data = Textures[i];
+		if (tex_data[EImGuiGML_Texture.Type] == _type) {
+			var tex_id = tex_data[EImGuiGML_Texture.TextureID];
+			
+			switch (_type) {
+			case EImGuiGML_TextureType.Sprite:  
+			  if (_id == tex_id[0] && _sub_img == tex_id[1]) return i;      
+			break;
+			default: if (_id == tex_id) return i;
+			}
+		}
 	}
+	
+	var new_texture = [ _id , _id, false, _type ];
+	
+	// special handling
+	if (_type == EImGuiGML_TextureType.Sprite) new_texture[@ EImGuiGML_Texture.TextureID] = [ _id, _sub_img ];
+	
+	Textures[@ Next_texture_id++] = new_texture;
+	return Next_texture_id - 1;
 
 	return undefined;
 }
@@ -356,12 +349,8 @@ function __imguigml_texture_id() {
 function __imguigml_wrapper_buffer() {
 	gml_pragma("forceinline");
 
-	with (ImGuiGML) {
-	  buffer_seek(Wrapper_buffer, buffer_seek_start, 0);
-	  return Wrapper_buffer;
-	}
-
-	return undefined;
+	buffer_seek(Wrapper_buffer, buffer_seek_start, 0);
+	return Wrapper_buffer;
 }
 
 ///@function __imguigml_handle_text_callback(_call_id, _callback, _user_data)
@@ -439,26 +428,26 @@ function __imguigml_handle_text_callback() {
 ///@extensionizer { "docs": "false" }
 function __imguigml_ext_call(_func_ret) {
 	// check if there's any debug messages, return if there are?
-	with (ImGuiGML) {
-		if (buffer_peek(Debug_buffer, 0, buffer_u32) > 0) {
-			var count = buffer_read(Debug_buffer, buffer_u32);
-			var msg = "";
-			for (var i = 0; i < count; ++i)
-				msg += buffer_read(Debug_buffer, buffer_string) + "\n";
-		
-			buffer_seek(Debug_buffer, buffer_seek_start, 0);
-			_extImGuiGML_flush_debug_buffer();
 
-			show_debug_message(msg);
-			if (Call_script_on_ImGui_error != noone)
-				script_execute(Call_script_on_ImGui_error, msg);
-			
-			if (Show_Error_on_ImGui_error || Abort_on_ImGui_error)
-				show_error(msg, Abort_on_ImGui_error);
-			else if (Show_message_on_ImGui_error)
-				show_message(msg);
-		}	
-	}
+	if (buffer_peek(Debug_buffer, 0, buffer_u32) > 0) {
+		var count = buffer_read(Debug_buffer, buffer_u32);
+		var msg = "";
+		for (var i = 0; i < count; ++i)
+			msg += buffer_read(Debug_buffer, buffer_string) + "\n";
+	
+		buffer_seek(Debug_buffer, buffer_seek_start, 0);
+		_extImGuiGML_flush_debug_buffer();
+
+		show_debug_message(msg);
+		if (Call_script_on_ImGui_error != noone)
+			script_execute(Call_script_on_ImGui_error, msg);
+		
+		if (Show_Error_on_ImGui_error || Abort_on_ImGui_error)
+			show_error(msg, Abort_on_ImGui_error);
+		else if (Show_message_on_ImGui_error)
+			show_message(msg);
+	}	
+	
 
 	// handle input copying.
 

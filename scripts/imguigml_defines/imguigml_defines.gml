@@ -1,9 +1,5 @@
 ///@desc enums / definitions for imguigml
 
-// easy access to ImGui
-#macro ImGuiGML (global.__imguigml)
-
-	// ImGui Enums
 #region EImGui_WindowFlags
 
 enum EImGui_WindowFlags {
@@ -620,7 +616,7 @@ enum EImGui_DisplayMode {
 #endregion
 #region ImGuiGMLPayload
 
-#macro ImGuiGML_PayloadData (global.__imguigml_payloads)
+#macro ImGuiGML_PayloadData (payloads)
 
 enum EImGuiGML_PayloadData {
 	Payloads = 0,

@@ -6,7 +6,7 @@
   "name":"imguigml_config",
   "parent":{
     "name":"ImGuiGML",
-    "path":"folders/Editor/ImGuiGML.yy",
+    "path":"folders/Editor/gmGui/ImGuiGML.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

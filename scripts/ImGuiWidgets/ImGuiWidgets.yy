@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"imgui_context",
+  "%Name":"ImGuiWidgets",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"imgui_context",
+  "name":"ImGuiWidgets",
   "parent":{
-    "name":"ImGuiGML",
-    "path":"folders/Editor/ImGuiGML.yy",
+    "name":"Classes",
+    "path":"folders/Editor/gmGui/Classes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

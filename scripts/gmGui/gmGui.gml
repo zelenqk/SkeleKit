@@ -1,12 +1,6 @@
-function imgui_context() constructor {
-	global.__imguigml = self;
-	global.__imguigml_payloads = [ 
-			[ ],
-			[ ],	
-			0,	
-	];
-		
-	memory = ds_map_create();
+function gmGui() : ImGuiWidgets() constructor {
+	memory = {};
+	payloads = [[], [], 0];
 	
 	rousr_callstack_init();
 	_extImguiGML_init();
@@ -32,6 +26,7 @@ function imgui_context() constructor {
 	Last_set_cursor = window_get_cursor();
 	
 	destroy = function(){
+		///@desc imgui - Clean Up
 		var num_textures = array_length(Textures);
 		var i = 1;
 		repeat(num_textures - 1) {
@@ -40,8 +35,6 @@ function imgui_context() constructor {
 			  sprite_delete(tex[EImGuiGML_Texture.TextureID]);
 		}
 		
-		global.__imguigml = noone;
-		
 		buffer_delete(Render_buffer[0]);
 		buffer_delete(Render_buffer[1]);
 		buffer_delete(Input_buffer);
@@ -49,13 +42,17 @@ function imgui_context() constructor {
 		buffer_delete(Debug_buffer);
 		
 		vertex_format_delete(Imgui_vertex_fmt);
-		ds_map_destroy(memory);
 		rousr_callstack_clean_up();
 		_extImguiGML_texteditors_cleanup();
-		_extImguiGML_shutdown();	
+		_extImguiGML_shutdown();
 	}
 	
-	step = function(){
+	update = function(){
+		///@desc imgui - Begin Step
+		///@function __event_begin_step
+		///@desc imguigml begin step event
+		///@extensionizer { "docs": false } 
+		/////////////
 		#region Update Input
 			var mb     = global.__imgui_mouse_buttons; 
 			var num_mouse_buttons = global.__imgui_num_mouse_buttons;
@@ -196,17 +193,11 @@ function imgui_context() constructor {
 				sr_buffer_write(in, _font_data.index, ERousrData.Int32);
 				sr_buffer_write(in, _font_name, ERousrData.String);
 				
-				if (__imguigml_ext_call(_extImguiGML_add_font_from_ttf(buffer_get_address(buff))))
-				{
+				if (__imguigml_ext_call(_extImguiGML_add_font_from_ttf(buffer_get_address(buff)))) {
 					var out = __Imgui_out;
 					var ret = buffer_read(out, buffer_s8) != 0;
 		
-					if (ret) {
-						// reinitialize font texture
-						with (imgui) {
-							__imguigml_init_font()
-						}
-					}
+					if (ret)  __imguigml_init_font()
 				}
 				
 				buffer_delete(buff);
@@ -221,12 +212,13 @@ function imgui_context() constructor {
 			var payload_data = ImGuiGML_PayloadData;
 			payload_data[@ EImGuiGML_PayloadData.PayloadID] = 0;
 		#endregion
+		
+		return NewFrame;
 	}
 	
 	render = function(){
 		global.___imguiIg = undefined;
-		if (!NewFrame)
-			return;
+		if (!NewFrame) return;
 		  
 		_extImguiGML_end_step();
 		
@@ -237,7 +229,7 @@ function imgui_context() constructor {
 		if (Should_update_cursor && Using_GM_cursor && !User_cursor_override) {
 		
 			var new_cursor = Last_set_cursor;
-			switch (imguigml_get_mouse_cursor()) {
+			switch (get_mouse_cursor()) {
 				case EImGui_MouseCursor.Arrow:      new_cursor = cr_arrow;     break;
 				case EImGui_MouseCursor.None:       new_cursor = cr_none;      break;
 				case EImGui_MouseCursor.ResizeEW:	  new_cursor = cr_size_we;   break;

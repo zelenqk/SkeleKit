@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"imguigml_read_me",
+  "%Name":"convert_color_to_array",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"imguigml_read_me",
+  "name":"convert_color_to_array",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Editor/gmGui/ImGuiGML/Scripts.yy",
+    "name":"Util",
+    "path":"folders/Editor/Util.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

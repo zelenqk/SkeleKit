@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"imguigml_read_me",
+  "%Name":"ImGuiWrapper",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"imguigml_read_me",
+  "name":"ImGuiWrapper",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Editor/gmGui/ImGuiGML/Scripts.yy",
+    "name":"Classes",
+    "path":"folders/Editor/gmGui/Classes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

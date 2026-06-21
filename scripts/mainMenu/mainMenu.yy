@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"imguigml_read_me",
+  "%Name":"mainMenu",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"imguigml_read_me",
+  "name":"mainMenu",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Editor/gmGui/ImGuiGML/Scripts.yy",
+    "name":"main_menu",
+    "path":"folders/Editor/GUI/prefabs/main_menu.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

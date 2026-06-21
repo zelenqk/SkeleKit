@@ -5274,7 +5274,6 @@ add a collapsing header
     *   Memory Manager
         *   ImGui::MemAlloc
         *   ImGui::MemFree
-
 ### Credits
 
 ImGuiGML DLL was written by [@babyj3ans](https://twitter.com/babj3ans/)

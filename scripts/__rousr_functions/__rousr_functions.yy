@@ -6,7 +6,7 @@
   "name":"__rousr_functions",
   "parent":{
     "name":"__internal",
-    "path":"folders/Editor/ImGuiGML/Scripts/extension/__internal.yy",
+    "path":"folders/Editor/gmGui/ImGuiGML/Scripts/extension/__internal.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

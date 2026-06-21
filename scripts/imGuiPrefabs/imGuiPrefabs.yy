@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"UI",
+  "%Name":"imGuiPrefabs",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"UI",
+  "name":"imGuiPrefabs",
   "parent":{
-    "name":"ImGuiGML",
-    "path":"folders/Editor/ImGuiGML.yy",
+    "name":"gmGui",
+    "path":"folders/Editor/gmGui.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

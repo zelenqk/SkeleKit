@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"EditorInterface",
   "parent":{
-    "name":"Classes",
-    "path":"folders/Editor/Classes.yy",
+    "name":"GUI",
+    "path":"folders/Editor/GUI.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
