@@ -1,2 +1,2 @@
 grid.draw();
-draw_rig(skeleton, camera.zoom);
+draw_rig(selected.rig, camera.zoom);

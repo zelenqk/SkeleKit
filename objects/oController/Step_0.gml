@@ -41,7 +41,7 @@ case INTERACT.MOVE:
 	break;
 }
 
-if (bind.remove and selected.node != pointer_null) {
+if (bind.remove and selected.rig == skeleton and selected.node != pointer_null) {
 	var node = selected.node;
 	var index = array_get_index(skeleton.nodes, node);
 	selected.node = pointer_null;
@@ -55,7 +55,7 @@ if (bind.remove and selected.node != pointer_null) {
 	});
 }
 
-if (bind.extrude and selected.node != pointer_null) {
+if (bind.extrude and selected.rig == skeleton and selected.node != pointer_null) {
 	var node = skeleton.add(camera.mouse.x, camera.mouse.y, pointer_null, selected.node);
 	var index = array_get_index(skeleton.nodes, node);
 	
@@ -71,10 +71,9 @@ if (bind.extrude and selected.node != pointer_null) {
 	});
 }
 
-if (bind.move) {
+if (bind.move and selected.node != pointer_null) {
 	var node = selected.node;
 	selected.state = capture_node_state(node);
-	
 	selected.interaction = (selected.interaction == INTERACT.MOVE) ? pointer_null : INTERACT.MOVE;
 }
 

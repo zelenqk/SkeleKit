@@ -1,4 +1,3 @@
-
 //systems
 interface = new EditorInterface(self);
 action = new ActionControl();
@@ -33,10 +32,12 @@ doindex = 0;
 dolist = [];
 
 selected = {
+	rig: skeleton,
+
 	node: skeleton.root,	
 	bone: pointer_null,
 	mode: MODE.CREATE_RIG,
-	
+
 	interaction: pointer_null,
 }
 

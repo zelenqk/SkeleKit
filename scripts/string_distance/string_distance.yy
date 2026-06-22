@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"string_distance",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"string_distance",
+  "parent":{
+    "name":"Util",
+    "path":"folders/Editor/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -55,6 +55,9 @@ function imGuiPrefabs() : gmGui() constructor {
 	}
 	
 	//input widgets
+	///@function textbox
+	///@param {String} text
+	///@param {String} id
 	static textbox = function(_text, _id) {
 		var ret = input_text("###" + _id, _text, 100);
 		return ret[1];

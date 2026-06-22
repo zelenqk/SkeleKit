@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"search_window",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"search_window",
+  "parent":{
+    "name":"widgets",
+    "path":"folders/Editor/GUI/prefabs/widgets.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

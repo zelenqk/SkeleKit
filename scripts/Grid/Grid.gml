@@ -5,6 +5,8 @@ function Grid() constructor{
 	line = #1A1D27;
 	origin = #2E3445;
 	
+	enabled = true;
+	
 	//cache
 	vertex_format_begin();
 	vertex_format_add_position();
@@ -41,7 +43,8 @@ function Grid() constructor{
 		var sx = round(tx / size);
 		var sy = round(ty / size);
 		
-		return {x: sx * size, y: sy * size};
+		if (enabled) return {x: sx * size, y: sy * size};
+		return {x: tx, y: ty};
 	}
 	
 	static set_size = function(s = size, w = width) {
@@ -57,6 +60,7 @@ function Grid() constructor{
 	}
 	
 	static draw = function() {
+		if (!enabled) return;
 		vertex_submit(vertex, pr_linelist, -1);
 	}
 }

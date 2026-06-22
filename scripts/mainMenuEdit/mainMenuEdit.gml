@@ -6,6 +6,10 @@ function mainMenuEdit(){
 function mainMenuEditGrid() {
 	menu_strip("Grid", "edtGrid", function(){
 		begin_group();
+			controller.grid.enabled = checkbox("enabled", controller.grid.enabled)[1];
+		end_group();
+		
+		begin_group();
 			text("size");
 			same_line(100, -1);
 			controller.grid.size = int_input("", "edtGrdSiz", controller.grid.size, 1, 1, controller.grid.build);

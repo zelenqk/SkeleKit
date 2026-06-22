@@ -37,8 +37,7 @@ function move_node(state) {
 	var node = state.object;
 	node.x = state.x;
 	node.y = state.y;
-	node.bone.direction = state.direction;
-	node.bone.length = state.length;
+
 }
 
 // Helper: grab a snapshot of a node's current transform
@@ -47,7 +46,6 @@ function capture_node_state(node) {
 		object: node,
 		x: node.x,
 		y: node.y,
-		direction: node.bone.direction,
-		length: node.bone.length
+
 	};
 }
