@@ -1,5 +1,4 @@
-function search_window(_label, query, content = [], widget = empty_function){
-	
+function search_window(_label, query, content = [], widget = empty_function, _button){
 	var width = 350;
 	var height = 400;
 	
@@ -13,9 +12,12 @@ function search_window(_label, query, content = [], widget = empty_function){
 	
 	var flags = (EImGui_WindowFlags.NoMove | EImGui_WindowFlags.NoResize | EImGui_WindowFlags.NoCollapse);
 	start(_label + "### query", undefined, flags);
-		push_item_width(-1)
-		query = textbox(query, "queryInput");
-		pop_item_width();
+		begin_group();
+			query = textbox(query, "queryInput");
+			same_line();
+			
+			if (_button != undefined) if (button(_button.label)) _button.onClick();
+		end_group();
 		
 		separator();
 		

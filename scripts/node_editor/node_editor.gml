@@ -59,6 +59,7 @@ function node_editor(node){
 		if (sprite_button(sBone, 0, 64, 64, 0)) {
 			open_popup("query");
 			search.type = "sprite";
+			search.content = spriteList;
 		}
 		
 		same_line();

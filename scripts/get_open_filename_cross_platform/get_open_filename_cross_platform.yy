@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"get_open_filename_cross_platform",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"get_open_filename_cross_platform",
+  "parent":{
+    "name":"Util",
+    "path":"folders/Editor/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

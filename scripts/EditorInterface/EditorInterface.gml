@@ -3,8 +3,16 @@ function EditorInterface(controller) : imGuiPrefabs() constructor {
 	
 	search = {
 		type: pointer_null,
-		query: ""
+		query: "",
+		content: [],
 	};
+	
+	addSprite = function() {
+		var path = get_open_filename_cross_platform("image", "");
+		if (path == "" or path == undefined) return;
+		
+		controller.selected.node.bone.sprite = new Sprite(path);
+	}
 	
 	step = function(){
 		if (!update()) return;
@@ -14,7 +22,7 @@ function EditorInterface(controller) : imGuiPrefabs() constructor {
 		node_editor(controller.selected.node);
 		
 		if (search.type != pointer_null) {
-			var res = search_window("search " + search.type, search.query, [{index: sBone, name: "bone", path: "/path/to/boneSprite.png"}], function(_sprite){
+			var res = search_window("search " + search.type, search.query, array_query_fuzzy_sort(search.content, search.query), function(_sprite) {
 				var index = _sprite.index;
 				var start_screen_pos = get_cursor_screen_pos();
 				
@@ -35,7 +43,11 @@ function EditorInterface(controller) : imGuiPrefabs() constructor {
 						pop_style_color(1);
 					end_group();
 				end_group();
-			});
+			}, (search.type == "sprite") ? {
+				label: "add sprite",
+				onClick: addSprite,
+				
+			} : undefined);
 			
 			search.query = res[0];
 			

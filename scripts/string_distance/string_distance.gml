@@ -50,7 +50,7 @@ function levenshtein_distance(_a, _b) {
 ///@param {Real} [_max_distance=2]     max edit distance to count as a match (lower = stricter)
 ///@param {String} [_key=undefined]    if _array holds structs, the struct field to compare against
 ///@returns {Array} filtered array, same element type as input, no reordering
-function array_query_fuzzy(_array, _query, _max_distance = 2, _key = undefined) {
+function array_query_fuzzy(_array, _query, _max_distance = 12, _key = undefined) {
     var result = [];
     var query_lower = string_lower(_query);
     var len = array_length(_array);
@@ -64,6 +64,48 @@ function array_query_fuzzy(_array, _query, _max_distance = 2, _key = undefined) 
         if (dist <= _max_distance) {
             array_push(result, item);
         }
+    }
+
+    return result;
+}
+
+/// @function array_query_fuzzy_sort(_array, _query, [_key=undefined])
+/// @returns {Array}
+function array_query_fuzzy_sort(_array, _query, _key = undefined)
+{
+    var query_lower = string_lower(_query);
+    var scored = [];
+
+    var len = array_length(_array);
+
+    for (var i = 0; i < len; i++)
+    {
+        var item = _array[i];
+
+        var compare_str = (_key != undefined)
+            ? item[$ _key]
+            : item;
+
+        compare_str = string_lower(string(compare_str));
+
+        var dist = levenshtein_distance(compare_str, query_lower);
+
+        array_push(scored, {
+            item : item,
+            score : dist
+        });
+    }
+
+    array_sort(scored, function(a, b)
+    {
+        return a.score - b.score;
+    });
+
+    var result = [];
+
+    for (var i = 0; i < array_length(scored); i++)
+    {
+        array_push(result, scored[i].item);
     }
 
     return result;
